@@ -52,7 +52,7 @@ public class AdminController {
     @RequiresRoles(value = {"ADMIN","SUPERVIP"},logical = Logical.OR)
     public String adminDownload(HttpServletRequest request)
     {
-        List<FileRecord> fileList=fileService.getAllFile();
+        List<FileRecord> fileList = fileService.getAllFile();
         request.setAttribute("fileList",fileList);
         return "admin/filelist";
     }
@@ -60,7 +60,7 @@ public class AdminController {
     @RequiresRoles(value = {"ADMIN","SUPERVIP"},logical = Logical.OR)
     public String adminIndex(ServletRequest request)
     {
-        AtomicInteger userNum=Listener.sessionCount;
+        AtomicInteger userNum = Listener.sessionCount;
         long fileNums = uploadService.getUploadTimes();
         Long downloadTimes = downloadService.getDownloadTimes();
         List<FileRecord> fileRecordList = downloadService.getMostDownloadRecord();

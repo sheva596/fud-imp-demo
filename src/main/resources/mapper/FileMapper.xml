@@ -7,7 +7,7 @@
 
     <update id="updateFile" parameterType="long">
         UPDATE fud.file
-        SET download_times=download_times+1
+        SET download_times=download_times + 1
         WHERE file.id=#{fileId}
     </update>
     <update id="updateFileRecord">
@@ -18,7 +18,7 @@
     <select id="getFileByUserId" parameterType="long" resultType="com.centerm.fud_demo.entity.FileRecord">
         SELECT file.id, file.name, file.size, file.suffix, date_format(fud.file.create_time,'%Y-%m-%d') AS createTime
         FROM fud.file
-        WHERE fud.file.user_id=#{userId}
+        WHERE fud.file.user_id=#{param1} AND fud.file.status=2
         ORDER BY fud.file.create_time DESC
     </select>
     <insert id="saveFileBegin" parameterMap="FileRecord">
@@ -61,19 +61,20 @@
     <select id="getFileById" parameterType="long" resultType="com.centerm.fud_demo.entity.FileRecord">
         SELECT file.id, file.name, file.md5, file.local_url localUrl, date_format(fud.file.create_time,'%Y-%m-%d') AS createTime
         FROM fud.file
-        WHERE id = #{id}
+        WHERE file.id = #{id} AND file.status = 2
         ORDER BY fud.file.create_time DESC
     </select>
     <select id="getAllFile" resultType="com.centerm.fud_demo.entity.FileRecord">
         SELECT file.id, file.name, file.size, file.suffix, date_format(fud.file.create_time,'%Y-%m-%d %H:%i:%S') AS createTime
         FROM fud.file
+        WHERE file.status=2
         ORDER BY fud.file.create_time DESC
     </select>
 
     <select id="getMostDownloadRecordById" resultType="com.centerm.fud_demo.entity.FileRecord" parameterType="long">
         SELECT file.name, file.size, file.suffix,  date_format(fud.file.create_time,'%Y-%m-%d %H:%i:%S') AS createTime, file.download_times downloadTimes
         FROM fud.file
-        WHERE fud.file.user_id=#{id}
+        WHERE fud.file.user_id=#{id} AND fud.file.status=2
         ORDER BY download_times DESC
         LIMIT 0,5
     </select>
@@ -89,11 +90,12 @@
     <select id="getUploadTimes" resultType="java.lang.Long">
         SELECT IFNULL(COUNT(*), 0)
         FROM fud.file
+        WHERE file.status=2
     </select>
     <select id="getLatestUploaded" resultType="com.centerm.fud_demo.entity.FileRecord" parameterType="long">
         SELECT file.name,  date_format(fud.file.create_time,'%Y-%m-%d') AS createTime
         FROM fud.file
-        WHERE fud.file.user_id=#{id}
+        WHERE fud.file.user_id=#{id} AND file.status=2
         ORDER BY fud.file.create_time DESC
         LIMIT 0, 5
     </select>
@@ -113,7 +115,7 @@
     <select id="getFileLikeContents" resultType="com.centerm.fud_demo.entity.FileRecord">
         SELECT file.id, file.name, file.size, file.suffix, DATE_FORMAT(file.create_time, '%Y-%m-%d') createTime
         FROM fud.file
-        WHERE file.name LIKE #{param1} AND file.user_id=#{param2}
+        WHERE file.name LIKE #{param1} AND file.user_id=#{param2} AND file.status=2
     </select>
     <select id="getUploadToMorrisJs" parameterType="long" resultType="java.util.HashMap">
         SELECT DATE_FORMAT(fud.file.create_time,'%Y-%m-%d') AS days,COUNT(*) AS upload
@@ -136,13 +138,14 @@
     <select id="getMostDownloadRecord" resultType="com.centerm.fud_demo.entity.FileRecord">
         SELECT file.name, file.size, file.suffix, date_format(fud.file.create_time,'%Y-%m-%d') AS createTime, file.download_times downloadTimes
         FROM fud.file
+        WHERE fud.file.status=2
         ORDER BY download_times DESC
         LIMIT 0,5
     </select>
     <select id="getUploadTimesByCurrUser" resultType="long" parameterType="long">
         SELECT IFNULL(COUNT(*), 0)
         FROM fud.file
-        WHERE fud.file.user_id=#{userId}
+        WHERE fud.file.user_id=#{userId} AND fud.file.status=2
     </select>
     <select id="getFileByName" resultType="com.centerm.fud_demo.entity.FileRecord">
         SELECT file.id, file.size, file.md5

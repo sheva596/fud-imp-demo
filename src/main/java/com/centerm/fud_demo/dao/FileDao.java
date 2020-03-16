@@ -136,6 +136,7 @@ public interface FileDao {
     * @param fileId 文件id
     * @param fileSize  文件大小
     * @param fileMd5 文件md5
+    * @param backupPath  备份地址
     * @return
     */
    Boolean updateFileRecord(Long fileId, String fileSize, String fileMd5, String backupPath);
