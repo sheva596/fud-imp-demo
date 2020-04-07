@@ -2,6 +2,10 @@ package com.centerm.fud_demo.entity.ajax;
 
 import lombok.Data;
 
+/**
+ * @author Jerry
+ * Msg返回的信息类
+ */
 @Data
 public class AjaxReturnMsg {
     private Integer flag;

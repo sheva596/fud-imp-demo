@@ -297,5 +297,4 @@ public class ShiroConfig {
         cacheManager.setCacheManagerConfigFile("classpath:config/ehcache-shiro.xml");
         return cacheManager;
     }
-
 }
