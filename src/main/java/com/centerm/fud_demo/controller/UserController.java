@@ -181,7 +181,7 @@ public class UserController {
     @PostMapping("information")
     @ResponseBody
     public AjaxReturnMsg updateUser(HttpServletRequest request){
-        AjaxReturnMsg msg=new AjaxReturnMsg();
+        AjaxReturnMsg msg = new AjaxReturnMsg();
         String password = request.getParameter("password");
         String username=((User)request.getSession().getAttribute("user")).getUsername();
         if ((null == password || ("").equals(password)))
@@ -220,9 +220,9 @@ public class UserController {
     @ResponseBody
     public AjaxReturnMsg search(HttpServletRequest request)
     {
-        AjaxReturnMsg msg=new AjaxReturnMsg();
+        AjaxReturnMsg msg = new AjaxReturnMsg();
         String contents=request.getParameter("contents");
-        Long userId=((User)request.getSession().getAttribute("user")).getId();
+        Long userId = ((User)request.getSession().getAttribute("user")).getId();
         List<FileRecord> fileList = fileService.getFileLikeContents(contents,userId);
         if (null == fileList || fileList.isEmpty())
         {
@@ -237,8 +237,8 @@ public class UserController {
     @GetMapping("search")
     public String Search(HttpServletRequest request)
     {
-        Long userId=((User)request.getSession().getAttribute("user")).getId();
-        List<FileRecord> fileList= fileService.getFileLikeContents((String) request.getSession().getAttribute("contents"),userId);
+        Long userId = ((User)request.getSession().getAttribute("user")).getId();
+        List<FileRecord> fileList = fileService.getFileLikeContents((String) request.getSession().getAttribute("contents"),userId);
         request.setAttribute("fileList",fileList);
         return "user/search";
     }

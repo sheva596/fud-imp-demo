@@ -7,9 +7,12 @@ import org.apache.shiro.session.SessionListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.concurrent.atomic.AtomicInteger;
+/**
+ * @author Jerry
+ */
 @Slf4j
 public class Listener implements SessionListener {
-    public static final AtomicInteger sessionCount=new AtomicInteger(0);
+    public static final AtomicInteger sessionCount = new AtomicInteger(0);
 
     @Override
     public void onStart(Session session) {

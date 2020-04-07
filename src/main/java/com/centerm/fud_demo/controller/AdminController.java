@@ -45,8 +45,7 @@ public class AdminController {
     private DownloadService downloadService;
     @Autowired
     private UploadService uploadService;
-    @Autowired
-    private BackupService backupService;
+
 
     @GetMapping("file")
     @RequiresRoles(value = {"ADMIN","SUPERVIP"},logical = Logical.OR)
@@ -125,7 +124,7 @@ public class AdminController {
     public AjaxReturnMsg toDelete(HttpServletRequest request) {
         AjaxReturnMsg msg = new AjaxReturnMsg();
         Long fileId = Long.parseLong(request.getParameter("fileId"));
-        Boolean isSuccess=fileService.deleteFile(fileId);
+        Boolean isSuccess = fileService.deleteFile(fileId);
         downloadService.deleteDownloadRecord(fileId);
         if (!isSuccess)
         {
@@ -142,9 +141,9 @@ public class AdminController {
     @RequiresRoles(value = {"ADMIN","SUPERVIP"},logical = Logical.OR)
     public AjaxReturnMsg search(HttpServletRequest request)
     {
-        AjaxReturnMsg msg=new AjaxReturnMsg();
+        AjaxReturnMsg msg = new AjaxReturnMsg();
         String contents = request.getParameter("contents");
-        List<User> userList= adminService.getUserLikeContents(contents);
+        List<User> userList = adminService.getUserLikeContents(contents);
         if (null == userList || userList.isEmpty())
         {
             msg.setMsg("No data...");

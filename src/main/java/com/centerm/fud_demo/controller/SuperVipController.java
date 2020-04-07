@@ -45,7 +45,7 @@ public class SuperVipController {
     public AjaxReturnMsg handleAdmin(ServletRequest request)
     {
         log.info("Handling admin...");
-        AjaxReturnMsg msg=new AjaxReturnMsg();
+        AjaxReturnMsg msg = new AjaxReturnMsg();
         Long userId = Long.parseLong(request.getParameter("userId"));
         log.info("User id: " + userId);
         if (superVipService.getUserRoles(userId) == Constants.ADMIN)

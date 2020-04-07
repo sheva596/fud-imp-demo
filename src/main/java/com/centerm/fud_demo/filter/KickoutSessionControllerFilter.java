@@ -101,7 +101,7 @@ public class KickoutSessionControllerFilter extends FormAuthenticationFilter {
 
         // 初始化用户的队列放到缓存里
         Deque<Serializable> deque = cache.get(username);
-        if(deque == null) {
+        if(null == deque) {
             deque = new LinkedList<Serializable>();
             cache.put(username, deque);
         }
@@ -114,8 +114,9 @@ public class KickoutSessionControllerFilter extends FormAuthenticationFilter {
         //如果队列里的sessionId数超出最大会话数，开始踢人
         while(deque.size() > maxSession) {
             Serializable kickoutSessionId = null;
-            if(kickoutAfter) { //如果踢出后者
-                kickoutSessionId=deque.getFirst();
+            //如果踢出后者
+            if(kickoutAfter) {
+                kickoutSessionId = deque.getFirst();
                 kickoutSessionId = deque.removeFirst();
             } else { //否则踢出前者
                 kickoutSessionId = deque.removeLast();
@@ -136,6 +137,7 @@ public class KickoutSessionControllerFilter extends FormAuthenticationFilter {
             try {
                 subject.logout();
             } catch (Exception e) {
+                log.error(e.getMessage());
             }
             WebUtils.issueRedirect(request, response, kickoutUrl);
             return false;

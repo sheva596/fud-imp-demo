@@ -37,11 +37,11 @@ public class ShiroConfig {
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("securityManager") SecurityManager securityManager)
     {
-        ShiroFilterFactoryBean shiroFilterFactoryBean=new ShiroFilterFactoryBean();
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        Map<String,String> filterMap=new LinkedHashMap<>();
-        Map<String, Filter> filter=new LinkedHashMap<>();
+        Map<String,String> filterMap = new LinkedHashMap<>();
+        Map<String, Filter> filter = new LinkedHashMap<>();
 
         filter.put("kickout",kickoutSessionControlFilter());
         shiroFilterFactoryBean.setFilters(filter);
@@ -276,7 +276,7 @@ public class ShiroConfig {
      */
     @Bean
     public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
-        SimpleMappingExceptionResolver simpleMappingExceptionResolver=new SimpleMappingExceptionResolver();
+        SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
         Properties properties=new Properties();
         //这里的 /unauthorized 是页面，不是访问的路径
         properties.setProperty("org.apache.shiro.authz.UnauthorizedException","/login");
@@ -297,18 +297,5 @@ public class ShiroConfig {
         cacheManager.setCacheManagerConfigFile("classpath:config/ehcache-shiro.xml");
         return cacheManager;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

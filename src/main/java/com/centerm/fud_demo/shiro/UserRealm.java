@@ -34,7 +34,7 @@ public class UserRealm extends AuthorizingRealm {
         log.info("Current User is：　" + user.getUsername());
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         String roleName = userService.findRoles(user.getUsername());
-        Set<String> set=new HashSet<>();
+        Set<String> set = new HashSet<>();
         set.add(roleName);
         authorizationInfo.setRoles(set);
         log.info("Current permission is： " + roleName);
@@ -43,7 +43,7 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException{
-        String username=(String)token.getPrincipal();
+        String username = (String)token.getPrincipal();
         User user = null;
         try {
             user = userService.findByUsername(username);
@@ -57,7 +57,7 @@ public class UserRealm extends AuthorizingRealm {
             throw new LockedAccountException();
         }
 
-        SimpleAuthenticationInfo authenticationInfo=new SimpleAuthenticationInfo(user,user.getPassword(), ByteSource.Util.bytes(user.getUsername()),getName());
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,user.getPassword(), ByteSource.Util.bytes(user.getUsername()),getName());
         return authenticationInfo;
     }
     /**

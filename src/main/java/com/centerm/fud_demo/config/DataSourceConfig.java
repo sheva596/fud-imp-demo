@@ -109,7 +109,7 @@ public class DataSourceConfig {
     @Bean(name = "sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource")DataSource dataSource) throws Exception
     {
-        final SqlSessionFactoryBean sessionFactoryBean=new SqlSessionFactoryBean();
+        final SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
         sessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(DataSourceConfig.MAPPER_LOCATION));
         Interceptor interceptor=new PageInterceptor();
